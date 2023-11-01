@@ -6,7 +6,7 @@ pipeline {
       
              steps{ 
               sh 'git checkout main'
-              sh 'git origin pull'      
+              sh 'git pull'      
             }
           }
 
