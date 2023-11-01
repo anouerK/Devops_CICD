@@ -27,4 +27,12 @@ pipeline {
             }
         }
     }
+  stage("JUNIT") {
+      
+             steps{
+             sh 'mvn test'
+
+            }
+        }
+    }
 }
