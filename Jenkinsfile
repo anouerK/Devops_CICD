@@ -26,8 +26,8 @@ pipeline {
 
             }
         }
-    }
-  stage("JUNIT") {
+
+  stage("JUNIT MOCK") {
       
              steps{
              sh 'mvn test'
