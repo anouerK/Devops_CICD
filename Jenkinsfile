@@ -10,29 +10,36 @@ pipeline {
             }
           }
 
-  stage("MVN Clean") {
-      
-             steps{
-             sh 'mvn clean'
+      stage("MVN Clean") {
 
+                 steps{
+                 sh 'mvn clean'
+
+                }
+            }
+
+
+      stage("MVN Compile") {
+
+                 steps{
+                 sh 'mvn compile'
+
+                }
+            }
+
+      stage("JUNIT MOCK") {
+
+                 steps{
+                 sh 'mvn test'
+
+                }
+            }
+      stage("NEXUS") {
+
+                 steps{
+                    sh 'mvn deploy -DskipTests'
+
+                }
             }
         }
-
-
-  stage("MVN Compile") {
-      
-             steps{
-             sh 'mvn compile'
-
-            }
-        }
-
-  stage("JUNIT MOCK") {
-      
-             steps{
-             sh 'mvn test'
-
-            }
-        }
-    }
 }
