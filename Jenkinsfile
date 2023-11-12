@@ -38,7 +38,7 @@ pipeline {
                 steps {
                     script {
                         withSonarQubeEnv('SonarQube') {
-                            sh 'mvn sonar:sonar'
+                            sh "mvn sonar:sonar -Dsonar.projectKey=supplier_anouer -Dsonar.projectName='supplier_anouer'"
                         }
                     }
             }
