@@ -57,15 +57,15 @@ pipeline {
             }
         }
 
-        stage('Pushing image to Docker Hub') {
-            steps {
-                script {
-                    docker.withRegistry('', registryCredential) {
-                        docker.image("${registry}:${BUILD_NUMBER}").push()
-                    }
-                }
-            }
-        }
+//         stage('Pushing image to Docker Hub') {
+//             steps {
+//                 script {
+//                     docker.withRegistry('', registryCredential) {
+//                         docker.image("${registry}:${BUILD_NUMBER}").push()
+//                     }
+//                 }
+//             }
+//         }
 
         stage('Deploying with Docker Compose') {
             steps {
