@@ -4,6 +4,7 @@ pipeline {
     environment {
         registry = "anouerkassaa/devops_indiv"
         registryCredential = 'dockerhub_id'
+        dockerComposeFile = 'docker-compose.yml'
     }
 
     stages {
@@ -66,11 +67,10 @@ pipeline {
             }
         }
 
-        stage('Running Docker container') {
+        stage('Deploying with Docker Compose') {
             steps {
                 script {
-                    sh "docker network create devops_network || true"
-                    sh "docker run -p 8085:8085 --name devops_supplier --network devops_network ${registry}:${BUILD_NUMBER}"
+                    sh "docker-compose -f ${dockerComposeFile} up -d"
                 }
             }
         }
