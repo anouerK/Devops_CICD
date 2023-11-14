@@ -17,6 +17,7 @@ services:
   sqldb:
     image: mysql:5.7
     restart: always
+    command: --innodb_force_recovery=1
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
