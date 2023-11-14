@@ -5,7 +5,7 @@ pipeline {
         registry = "anouerkassaa/devops_indiv"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
-        containerName = 'my-container'
+        containerName = 'anouerkassaa/devops_indiv'
     }
 
     stages {
