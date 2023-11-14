@@ -70,7 +70,6 @@ pipeline {
 
              steps{
                    sh 'mvn deploy -DskipTests'
-                   }
              }
         }
         stage("SonarQube Analysis") {
@@ -82,5 +81,4 @@ pipeline {
                 }
             }
         }
-    }
 }
