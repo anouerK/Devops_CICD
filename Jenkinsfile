@@ -33,15 +33,15 @@ pipeline {
             }
         }
 
-        stage("SonarQube Analysis") {
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "mvn sonar:sonar -Dsonar.projectKey=supplier_anouer -Dsonar.projectName='supplier_anouer'"
-                    }
-                }
-            }
-        }
+//         stage("SonarQube Analysis") {
+//             steps {
+//                 script {
+//                     withSonarQubeEnv('SonarQube') {
+//                         sh "mvn sonar:sonar -Dsonar.projectKey=supplier_anouer -Dsonar.projectName='supplier_anouer'"
+//                     }
+//                 }
+//             }
+//         }
 
         stage("Packaging") {
             steps {
