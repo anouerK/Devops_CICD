@@ -53,7 +53,7 @@ volumes:
   SonarQube_extensions:
   SonarQube_Logs:
   nexus-data:
-  my-db:
+  db:
   .m2:
 networks:
   my-network:
