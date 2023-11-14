@@ -1,0 +1,20 @@
+version: '3'
+services:
+  supplier:
+    build:
+      context: .
+    image: anouerkassaa/devops_indiv:latest
+    ports:
+      - "8085:8085"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: devops
+      MYSQL_USER: sa
+      MYSQL_PASSWORD: sa
+    ports:
+      - "3306:3306"

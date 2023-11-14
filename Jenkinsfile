@@ -4,9 +4,6 @@ pipeline {
     environment {
         registry = "anouerkassaa/devops_indiv"
         registryCredential = 'dockerhub_id'
-        dockerImage = ''
-        dockerImageName = 'devops_final_image'
-        containerName='supplier'
     }
 
     stages {
@@ -51,36 +48,28 @@ pipeline {
             }
         }
 
-        stage('NEXUS') {
-            steps {
-                sh 'mvn deploy -DskipTests'
-            }
-        }
-
-        stage('Building  image') {
+        stage('Building image') {
             steps {
                 script {
-                    dockerImage = docker.build("${registry}:${BUILD_NUMBER}")
+                    docker.build("${registry}:${BUILD_NUMBER}")
                 }
             }
         }
 
-        stage('Deploy  image') {
+        stage('Pushing image to Docker Hub') {
             steps {
                 script {
                     docker.withRegistry('', registryCredential) {
-                        dockerImage.push()
+                        docker.image("${registry}:${BUILD_NUMBER}").push()
                     }
                 }
             }
         }
 
-        stage('Docker Compose') {
+        stage('Running Docker container') {
             steps {
                 script {
-//                    sh "docker run -p 8080:8085 --name ${containerName} -d ${registry}:${BUILD_NUMBER}"
-                    sh "docker run -p 8085:8085 ${registry}:${BUILD_NUMBER}"
-
+                    sh "docker run -p 8085:8085 --name ${registry}:${BUILD_NUMBER} --link mysql:mysql ${registry}:${BUILD_NUMBER}"
                 }
             }
         }
