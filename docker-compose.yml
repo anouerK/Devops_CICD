@@ -1,13 +1,13 @@
 version: '3'
 services:
   supplier:
-    build:
-      context: .
     image: anouerkassaa/devops_indiv:latest
-    ports:
-      - "8085:8085"
+    build: .
     depends_on:
       - mysqldb
+    restart: on-failure
+    ports:
+      - "8082:8082"
     volumes:
       - .m2:/root/.m2
     stdin_open: true
@@ -48,6 +48,11 @@ services:
       - 'nexus-data:/nexus-data'
     networks:
       - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
 volumes:
   SonarQube_data:
   SonarQube_extensions:
@@ -55,6 +60,3 @@ volumes:
   nexus-data:
   db:
   .m2:
-networks:
-  my-network:
-    driver: bridge
