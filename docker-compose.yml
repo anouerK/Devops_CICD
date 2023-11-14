@@ -1,44 +1,3 @@
-#version: '3'
-#services:
-#  supplier:
-#    build:
-#      context: .
-#    image: anouerkassaa/devops_indiv:latest
-#    ports:
-#      - "8085:8085"
-#    depends_on:
-#      - mysql
-#    networks:
-#      - devops_network
-
-#  mysql:
-#    image: mysql:8
-#    environment:
-#      MYSQL_ROOT_PASSWORD: 'root_password'
-#      MYSQL_DATABASE: devops
-#      MYSQL_USER: sa
-#      MYSQL_PASSWORD: sa
-#    ports:
-#      - "3306:3306"
-#    networks:
-#      - devops_network
-
-#  nexus:
-#    image: sonatype/nexus3
-#    ports:
-#      - "8081:8081"
-#    networks:
-#      - devops_network
-#
-#  sonarqube:
-#    image: sonarqube
-#    ports:
-#      - "9000:9000"
-#    networks:
-#      - devops_network
-#
-#networks:
-#  devops_network:
 
 version: '3'
 services:
@@ -49,13 +8,15 @@ services:
     ports:
       - "8085:8085"
     depends_on:
-      - mysql
+      - sqldb
+    volumes:
+      - .m2:/root/.m2
     restart: on-failure
     stdin_open: true
     tty: true
     networks:
       - my-network
-  mysql:
+  sqldb:
     image: mysql:8
     restart: always
     environment:
@@ -94,6 +55,7 @@ volumes:
   SonarQube_Logs:
   nexus-data:
   my-db:
+  .m2:
 networks:
   my-network:
     driver: bridge
