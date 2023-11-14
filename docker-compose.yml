@@ -50,16 +50,16 @@ services:
       - "8085:8085"
     depends_on:
       - mysql
+    restart: on-failure
+    stdin_open: true
+    tty: true
     networks:
       - my-network
   mysql:
     image: mysql:8
     restart: always
     environment:
-      MYSQL_DATABASE: 'devops'
-      MYSQL_USER: 'degla'
-      MYSQL_PASSWORD: 'degla'
-      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - '3306:3306'
     expose:
