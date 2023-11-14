@@ -52,13 +52,18 @@ services:
       - mysql
   mysql:
     image: mysql:8
+    restart: always
     environment:
+      MYSQL_DATABASE: 'devops'
+      MYSQL_USER: 'degla'
+      MYSQL_PASSWORD: 'degla'
       MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: devops
-      MYSQL_USER: sa
-      MYSQL_PASSWORD: sa
     ports:
-      - "3306:3306"
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
 
   sonarqube:
     image: sonarqube
@@ -82,3 +87,4 @@ volumes:
   SonarQube_extensions:
   SonarQube_Logs:
   nexus-data:
+  my-db:
