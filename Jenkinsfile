@@ -33,15 +33,7 @@ pipeline {
             }
         }
 
-//         stage("SonarQube Analysis") {
-//             steps {
-//                 script {
-//                     withSonarQubeEnv('SonarQube') {
-//                         sh "mvn sonar:sonar -Dsonar.projectKey=supplier_anouer -Dsonar.projectName='supplier_anouer'"
-//                     }
-//                 }
-//             }
-//         }
+
 
         stage("Packaging") {
             steps {
@@ -57,20 +49,36 @@ pipeline {
             }
         }
 
-//         stage('Pushing image to Docker Hub') {
-//             steps {
-//                 script {
-//                     docker.withRegistry('', registryCredential) {
-//                         docker.image("${registry}:${BUILD_NUMBER}").push()
-//                     }
-//                 }
-//             }
-//         }
+        stage('Pushing image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        docker.image("${registry}:${BUILD_NUMBER}").push()
+                    }
+                }
+            }
+        }
 
         stage('Deploying with Docker Compose') {
             steps {
                 script {
                     sh "docker-compose -f ${dockerComposeFile} up -d"
+                }
+            }
+        }
+        stage("NEXUS") {
+
+             steps{
+                   sh 'mvn deploy -DskipTests'
+                   }
+             }
+        }
+        stage("SonarQube Analysis") {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "mvn sonar:sonar -Dsonar.projectKey=supplier_anouer -Dsonar.projectName='supplier_anouer'"
+                    }
                 }
             }
         }
