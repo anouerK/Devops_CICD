@@ -79,7 +79,7 @@ pipeline {
             steps {
                 script {
 //                    sh "docker run -p 8080:8085 --name ${containerName} -d ${registry}:${BUILD_NUMBER}"
-                    sh "docker run -p 8085:8085 ${registry}/${dockerImageName}:${BUILD_NUMBER}"
+                    sh "docker run -p 8085:8085 ${registry}:${BUILD_NUMBER}"
 
                 }
             }
