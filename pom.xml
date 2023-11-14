@@ -85,6 +85,7 @@
                 <version>3.9.1.2184</version> <!-- Use the latest version available -->
             </plugin>
         </plugins>
+        <finalName>Devops_Final</finalName>
     </build>
 
 </project>
