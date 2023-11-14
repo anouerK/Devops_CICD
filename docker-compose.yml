@@ -8,13 +8,20 @@ services:
       - "8085:8085"
     depends_on:
       - mysql
+    networks:
+      - devops_network
 
   mysql:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ROOT_PASSWORD: 'root_password'
       MYSQL_DATABASE: devops
       MYSQL_USER: sa
       MYSQL_PASSWORD: sa
     ports:
       - "3306:3306"
+    networks:
+      - devops_network
+
+networks:
+  devops_network:
