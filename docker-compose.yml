@@ -50,6 +50,8 @@ services:
       - "8085:8085"
     depends_on:
       - mysql
+    networks:
+      - my-network
   mysql:
     image: mysql:8
     restart: always
@@ -64,6 +66,8 @@ services:
       - '3306'
     volumes:
       - my-db:/var/lib/mysql
+    networks:
+      - my-network
 
   sonarqube:
     image: sonarqube
@@ -75,6 +79,8 @@ services:
       - 'SonarQube_data:/opt/SonarQube/data'
       - 'SonarQube_extensions:/opt/SonarQube/extensions'
       - 'SonarQube_Logs:/opt/SonarQube/logs'
+    networks:
+      - my-network
   nexus:
     image: sonatype/nexus3
     container_name: nexus
@@ -82,9 +88,14 @@ services:
       - "8081:8081"
     volumes:
       - 'nexus-data:/nexus-data'
+    networks:
+      - my-network
 volumes:
   SonarQube_data:
   SonarQube_extensions:
   SonarQube_Logs:
   nexus-data:
   my-db:
+networks:
+  my-network:
+    driver: bridge
