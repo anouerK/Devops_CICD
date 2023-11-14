@@ -1,6 +1,10 @@
 pipeline {
     agent any
-
+    environment {
+        registry = "anouerkassaa/devops_indiv"
+        registryCredential = 'dockerhub_id'
+        dockerImage = ''
+    }
       stages {
          stage("Git") {
       
@@ -56,4 +60,21 @@ pipeline {
                 }
             }
         }
+        stage('Building our image') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }
+        stage('Deploy our image') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
 }
