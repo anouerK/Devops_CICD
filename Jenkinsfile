@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-        stage('Building our image') {
+        stage('Building  image') {
             steps {
                 script {
                     dockerImage = docker.build("${registry}:${BUILD_NUMBER}")
@@ -64,7 +64,7 @@ pipeline {
             }
         }
 
-        stage('Deploy our image') {
+        stage('Deploy  image') {
             steps {
                 script {
                     docker.withRegistry('', registryCredential) {
@@ -74,7 +74,7 @@ pipeline {
             }
         }
 
-        stage('Run Docker Compose') {
+        stage('Docker Compose') {
             steps {
                 script {
                     sh "docker-compose -f ${dockerComposeFile} up -d"
