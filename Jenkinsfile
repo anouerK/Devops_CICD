@@ -5,7 +5,7 @@ pipeline {
         registry = "anouerkassaa/devops_indiv"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
-        containerName = 'anouerkassaa/devops_indiv'
+        dockerComposeFile = 'docker-compose.yml'
     }
 
     stages {
@@ -77,7 +77,7 @@ pipeline {
         stage('Docker Compose') {
             steps {
                 script {
-                    sh "docker run -p 8080:8085 --name ${containerName} -d ${registry}:${BUILD_NUMBER}"
+                    sh "docker-compose -f ${dockerComposeFile} up -d"
                 }
             }
         }

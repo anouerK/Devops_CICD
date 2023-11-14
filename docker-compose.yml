@@ -1,0 +1,9 @@
+version: '3'
+services:
+  supplier:
+    image: adoptopenjdk/openjdk11:alpine-jre
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./target/Devops_Final.jar:/Devops_Final.jar
+    command: ["java", "-jar", "/Devops_Final.jar"]
