@@ -53,7 +53,7 @@ services:
   mysql:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_DATABASE: devops
       MYSQL_USER: sa
       MYSQL_PASSWORD: sa
