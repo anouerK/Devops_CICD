@@ -69,6 +69,7 @@ pipeline {
         stage('Running Docker container') {
             steps {
                 script {
+                    sh "docker network create devops_network || true"
                     sh "docker run -p 8085:8085 --name devops_supplier --network devops_network ${registry}:${BUILD_NUMBER}"
                 }
             }
