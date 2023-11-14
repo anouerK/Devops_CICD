@@ -50,7 +50,6 @@ services:
       - "8085:8085"
     depends_on:
       - mysql
-      -
   mysql:
     image: mysql:8
     environment:
