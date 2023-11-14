@@ -69,7 +69,7 @@ pipeline {
         stage('Running Docker container') {
             steps {
                 script {
-                    sh "docker run -p 8085:8085 --name ${registry}:${BUILD_NUMBER} --link mysql:mysql ${registry}:${BUILD_NUMBER}"
+                    sh "docker run -p 8085:8085 --name devops_supplier  --link mysql:mysql ${registry}:${BUILD_NUMBER}"
                 }
             }
         }
