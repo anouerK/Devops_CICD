@@ -1,4 +1,46 @@
-version: '3'
+#version: '3'
+#services:
+#  supplier:
+#    build:
+#      context: .
+#    image: anouerkassaa/devops_indiv:latest
+#    ports:
+#      - "8085:8085"
+#    depends_on:
+#      - mysql
+#    networks:
+#      - devops_network
+
+#  mysql:
+#    image: mysql:8
+#    environment:
+#      MYSQL_ROOT_PASSWORD: 'root_password'
+#      MYSQL_DATABASE: devops
+#      MYSQL_USER: sa
+#      MYSQL_PASSWORD: sa
+#    ports:
+#      - "3306:3306"
+#    networks:
+#      - devops_network
+
+#  nexus:
+#    image: sonatype/nexus3
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - devops_network
+#
+#  sonarqube:
+#    image: sonarqube
+#    ports:
+#      - "9000:9000"
+#    networks:
+#      - devops_network
+#
+#networks:
+#  devops_network:
+
+version: '2'
 services:
   supplier:
     build:
@@ -10,32 +52,35 @@ services:
       - mysql
     networks:
       - devops_network
-
   mysql:
     image: mysql:8
     environment:
-      MYSQL_ROOT_PASSWORD: 'root_password'
+      MYSQL_ROOT_PASSWORD: ''
       MYSQL_DATABASE: devops
       MYSQL_USER: sa
       MYSQL_PASSWORD: sa
     ports:
       - "3306:3306"
-    networks:
-      - devops_network
-
-  nexus:
-    image: sonatype/nexus3
-    ports:
-      - "8081:8081"
-    networks:
-      - devops_network
 
   sonarqube:
     image: sonarqube
+    container_name: sonar
     ports:
       - "9000:9000"
-    networks:
-      - devops_network
-
-networks:
-  devops_network:
+      - "9092:9092"
+    volumes:
+      - 'SonarQube_data:/opt/SonarQube/data'
+      - 'SonarQube_extensions:/opt/SonarQube/extensions'
+      - 'SonarQube_Logs:/opt/SonarQube/logs'
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    ports:
+      - "8081:8081"
+    volumes:
+      - 'nexus-data:/nexus-data'
+volumes:
+  SonarQube_data:
+  SonarQube_extensions:
+  SonarQube_Logs:
+  nexus-data:
