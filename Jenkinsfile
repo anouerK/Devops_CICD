@@ -27,8 +27,6 @@ pipeline {
             }
         }
 
-
-
         stage("Packaging") {
             steps {
                 sh "mvn package"
@@ -75,17 +73,19 @@ pipeline {
                 }
             }
         }
-        stage('Send Email Notification') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
+        stage('Notification') {
             steps {
-                mail to: 'anoueramin.kassaa@esprit.tn, ksaay2000@gmail.com',
-                     subject: "Jenkins Pipeline",
-                     body: """<p>Build ${currentBuild.fullDisplayName} has completed successfully!</p>
-                             <p>Build URL: ${env.BUILD_URL}</p>
-                             <p>Changes: ${CHANGES_SINCE_LAST_SUCCESS}</p>""",
-                     from: 'projectlaravel77@gmail.com'
+                    currentBuild.result = 'SUCCESS'
+                    emailext(
+                        subject: "Successful Build #${currentBuild.number} ",
+                        body: """
+                            The build was successful!
+                            Build Details: ${BUILD_URL}
+                            Build Number: ${currentBuild.number}
+                            Build Status: ${currentBuild.currentResult}
+                        """,
+                        to: 'ksaay2000@gmail.com'
+                    )
             }
         }
     }
