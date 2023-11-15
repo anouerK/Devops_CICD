@@ -51,7 +51,6 @@ services:
 
   prometheus:
     image: prom/prometheus
-    container_name: prometheus
     ports:
       - "9090:9090"
     volumes:
@@ -70,6 +69,8 @@ services:
       - './grafana:/var/lib/grafana'
     networks:
       - my-network
+    depends_on:
+      - prometheus
 
 networks:
   my-network:
