@@ -75,5 +75,18 @@ pipeline {
                 }
             }
         }
+        stage('Send Email Notification') {
+            when {
+                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+            }
+            steps {
+                mail to: 'anoueramin.kassaa@esprit.tn, ksaay2000@gmail.com',
+                     subject: "Jenkins Pipeline",
+                     body: """<p>Build ${currentBuild.fullDisplayName} has completed successfully!</p>
+                             <p>Build URL: ${env.BUILD_URL}</p>
+                             <p>Changes: ${CHANGES_SINCE_LAST_SUCCESS}</p>""",
+                     from: 'projectlaravel77@gmail.com'
+            }
+        }
     }
 }
