@@ -8,12 +8,12 @@ pipeline {
     }
 
     stages {
-        stage("Git") {
-            steps {
-                sh 'git checkout main'
-                sh 'git pull'
-            }
-        }
+//         stage("Git") {
+//             steps {
+//                 sh 'git checkout main'
+//                 sh 'git pull'
+//             }
+//         }
 
         stage("MVN Clean") {
             steps {
