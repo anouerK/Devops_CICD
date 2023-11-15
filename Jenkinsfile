@@ -75,6 +75,7 @@ pipeline {
         }
         stage('Notification') {
             steps {
+                script {
                     currentBuild.result = 'SUCCESS'
                     emailext(
                         subject: "Successful Build #${currentBuild.number} ",
@@ -86,6 +87,7 @@ pipeline {
                         """,
                         to: 'ksaay2000@gmail.com'
                     )
+                }
             }
         }
     }
