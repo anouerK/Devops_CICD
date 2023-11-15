@@ -66,8 +66,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./data/grafana/:/var/lib/grafana
-      - ./etc/grafana/:/etc/grafana/provisioning/
+      - grafana:/var/lib/grafana
     networks:
       - my-network
     depends_on:
@@ -84,3 +83,4 @@ volumes:
   nexus-data:
   db:
   .m2:
+  grafana:
