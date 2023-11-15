@@ -8,12 +8,6 @@ pipeline {
     }
 
     stages {
-//         stage("Git") {
-//             steps {
-//                 sh 'git checkout main'
-//                 sh 'git pull'
-//             }
-//         }
 
         stage("MVN Clean") {
             steps {
@@ -27,37 +21,37 @@ pipeline {
             }
         }
 
-//         stage("JUNIT MOCK") {
-//             steps {
-//                 sh 'mvn test'
-//             }
-//         }
-//
-//
-//
+        stage("JUNIT MOCK") {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+
+
         stage("Packaging") {
             steps {
                 sh "mvn package"
             }
         }
 
-//         stage('Building image') {
-//             steps {
-//                 script {
-//                     docker.build("${registry}:${BUILD_NUMBER}")
-//                 }
-//             }
-//         }
-//
-//         stage('Pushing image to Docker Hub') {
-//             steps {
-//                 script {
-//                     docker.withRegistry('', registryCredential) {
-//                         docker.image("${registry}:${BUILD_NUMBER}").push()
-//                     }
-//                 }
-//             }
-//         }
+        stage('Building image') {
+            steps {
+                script {
+                    docker.build("${registry}:${BUILD_NUMBER}")
+                }
+            }
+        }
+
+        stage('Pushing image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('', registryCredential) {
+                        docker.image("${registry}:${BUILD_NUMBER}").push()
+                    }
+                }
+            }
+        }
 
         stage('Deploying with Docker Compose') {
             steps {
@@ -66,20 +60,20 @@ pipeline {
                 }
             }
         }
-//         stage("NEXUS") {
-//
-//              steps{
-//                    sh 'mvn deploy -DskipTests'
-//              }
-//         }
-//         stage("SonarQube Analysis") {
-//             steps {
-//                 script {
-//                     withSonarQubeEnv('SonarQube') {
-//                         sh "mvn sonar:sonar -Dsonar.projectKey=supplier_anouer -Dsonar.projectName='supplier_anouer'"
-//                     }
-//                 }
-//             }
-//         }
+        stage("NEXUS") {
+
+             steps{
+                   sh 'mvn deploy -DskipTests'
+             }
+        }
+        stage("SonarQube Analysis") {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "mvn sonar:sonar -Dsonar.projectKey=supplier_anouer -Dsonar.projectName='supplier_anouer'"
+                    }
+                }
+            }
+        }
     }
 }
