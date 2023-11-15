@@ -35,12 +35,12 @@ pipeline {
 //
 //
 //
-//         stage("Packaging") {
-//             steps {
-//                 sh "mvn package"
-//             }
-//         }
-//
+        stage("Packaging") {
+            steps {
+                sh "mvn package"
+            }
+        }
+
 //         stage('Building image') {
 //             steps {
 //                 script {
